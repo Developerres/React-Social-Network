@@ -1,0 +1,10 @@
+.nav {
+  grid-area: Nav;
+  background: #f7f7f7;
+  border-radius: 0.4em;
+  padding: 1em;
+}
+
+.active {
+  text-decoration: underline;
+}

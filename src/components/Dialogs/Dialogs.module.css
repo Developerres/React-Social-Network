@@ -1,0 +1,28 @@
+.pageDialogs {
+  display: grid;
+  grid-template-columns: 0.3fr 1.7fr;
+  gap: 1em 1em;
+}
+
+.users {
+  border-right: 1px solid #f7f7f7;
+  padding: 1em;
+}
+
+.user {
+  padding: 0.5em;
+}
+
+.user a {
+  padding: 0.5em;
+}
+
+.user .active {
+  background-color: #f7f7f7;
+  padding: 0.5em;
+  border-radius: 0.4em;
+}
+
+.dialogs {
+  padding: 1em;
+}
