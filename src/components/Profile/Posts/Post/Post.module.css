@@ -1,0 +1,13 @@
+.post {
+  position: relative;
+  border-radius: 1rem;
+  padding: 20px;
+  background: #f7f7f7;
+  color: #282c34;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 3em;
+  padding-right: 1em;
+}

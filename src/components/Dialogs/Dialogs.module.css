@@ -26,3 +26,46 @@
 .dialogs {
   padding: 1em;
 }
+
+.dialog {
+  position: relative;
+  border-radius: 1rem;
+  padding: 20px;
+  background: #282c34;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.dialog::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+  right: -8px;
+  height: 20px;
+  width: 20px;
+  background: inherit;
+  border-bottom-left-radius: 15px;
+}
+
+.dialog::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  right: -10px;
+  width: 10px;
+  height: 21px;
+  background: #fff;
+  border-bottom-left-radius: 10px;
+}
+
+textarea {
+  width: 99%;
+}
+
+.flex_end {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}

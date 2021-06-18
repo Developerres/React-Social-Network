@@ -2,7 +2,12 @@ import cn from "./Post.module.css";
 
 function Post(props) {
   return (
-    <div>
+    <div className={cn.post}>
+      <img
+        src="https://assets.vercel.com/image/upload/f_auto,c_limit,q_auto,w_96/front/home/new/sarah-2.png"
+        alt=""
+        className={cn.avatar}
+      />
       {props.message}
       <span>
         <img

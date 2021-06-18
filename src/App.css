@@ -6,12 +6,27 @@ a:hover {
   text-decoration: underline;
 }
 
+button {
+  color: #ffffff;
+  font-size: 1em;
+  padding: 0.65em 2em;
+  border: 2px solid #030b1b;
+  border-radius: 6px;
+  background-color: #282c34;
+  cursor: pointer;
+  margin: 1em 0;
+}
+
+button:hover {
+  background-color: #28344b;
+}
+
 .App {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 0.3fr 1.7fr;
-  grid-template-rows: 0.3fr 1.7fr;
+  grid-template-columns: 0.6fr 1.4fr;
+  /* grid-template-rows: 0.6fr 1.4fr; */
   gap: 1em 1em;
   grid-template-areas:
     "Header Header"
