@@ -15,11 +15,7 @@ function Profile(props) {
         description
       </div>
 
-      <Posts
-        profilePage={props.profilePage}
-        addPost={props.addPost}
-        uploadPostMessage={props.uploadPostMessage}
-      />
+      <Posts profilePage={props.profilePage} dispatch={props.dispatch} />
     </div>
   );
 }

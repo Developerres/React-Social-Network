@@ -1,4 +1,8 @@
 import React from "react";
+import {
+  addPostActionCreator,
+  uploadPostMessageActionCreator,
+} from "../../../redux/state";
 import Post from "./Post/Post";
 import cn from "./Posts.module.css";
 
@@ -6,12 +10,12 @@ function Posts(props) {
   const newPostText = React.createRef();
 
   const addNewPost = function () {
-    props.addPost();
-    newPostText.current.value = "";
+    props.dispatch(addPostActionCreator());
   };
 
   const postOnChange = function () {
-    props.uploadPostMessage(newPostText.current.value);
+    const text = newPostText.current.value;
+    props.dispatch(uploadPostMessageActionCreator(text));
   };
 
   const postRender = props.profilePage.postData.map((text) => (
