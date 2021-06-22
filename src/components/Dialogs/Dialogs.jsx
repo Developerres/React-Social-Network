@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import {
   addDialogMessageActionCreator,
   uploadDialogMessageActionCreator,
-} from "../../redux/state";
+} from "../../redux/dialogsReducer";
 import cn from "./Dialogs.module.css";
 
 function DialogItem(props) {
@@ -30,14 +30,12 @@ function Dialogs(props) {
     <MessageItem message={text.message} />
   ));
 
-  const newDialogText = React.createRef();
-
   const addNewDialogMessage = function () {
     props.dispatch(addDialogMessageActionCreator());
   };
 
-  const messageOnChange = function () {
-    const text = newDialogText.current.value;
+  const messageOnChange = function (e) {
+    const text = e.target.value;
     props.dispatch(uploadDialogMessageActionCreator(text));
   };
 
@@ -49,7 +47,6 @@ function Dialogs(props) {
         <div>
           <div className={cn.flex_end}>
             <textarea
-              ref={newDialogText}
               onChange={messageOnChange}
               value={props.dialogsPage.messageText}
             />

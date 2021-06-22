@@ -2,19 +2,17 @@ import React from "react";
 import {
   addPostActionCreator,
   uploadPostMessageActionCreator,
-} from "../../../redux/state";
+} from "../../../redux/profileReducer";
 import Post from "./Post/Post";
 import cn from "./Posts.module.css";
 
 function Posts(props) {
-  const newPostText = React.createRef();
-
   const addNewPost = function () {
     props.dispatch(addPostActionCreator());
   };
 
-  const postOnChange = function () {
-    const text = newPostText.current.value;
+  const postOnChange = function (e) {
+    const text = e.target.value;
     props.dispatch(uploadPostMessageActionCreator(text));
   };
 
@@ -28,7 +26,6 @@ function Posts(props) {
 
       <div className={cn.flex_end}>
         <textarea
-          ref={newPostText}
           onChange={postOnChange}
           value={props.profilePage.dialogText}
         />

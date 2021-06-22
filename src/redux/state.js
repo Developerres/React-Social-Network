@@ -1,7 +1,5 @@
-const ADD_POST = "ADD-POST";
-const UPLOAD_POST_MESSAGE = "UPLOAD-POST-MESSAGE";
-const ADD_DIALOG_MESSAGE = "ADD-DIALOG-MESSAGE";
-const UPLOAD_DIALOG_MESSAGE = "UPLOAD-DIALOG-MESSAGE";
+import dialogsReducer from "./dialogsReducer";
+import profileReducer from "./profileReducer";
 
 const store = {
   _state: {
@@ -40,48 +38,10 @@ const store = {
   },
 
   dispatch(action) {
-    if (action.type === ADD_POST) {
-      const newPost = {
-        id: 5,
-        message: this._state.profilePage.dialogText,
-        likesCount: 0,
-      };
-      this._state.profilePage.postData.push(newPost);
-      this._state.profilePage.dialogText = "";
-      this._callSubscriber(this._state);
-    }
-    if (action.type === UPLOAD_POST_MESSAGE) {
-      this._state.profilePage.dialogText = action.text;
-      this._callSubscriber(this._state);
-    }
-    if (action.type === ADD_DIALOG_MESSAGE) {
-      const newDialogMessage = {
-        id: 4,
-        message: this._state.dialogsPage.messageText,
-      };
-      this._state.dialogsPage.messageData.push(newDialogMessage);
-      this._state.dialogsPage.messageText = "";
-      this._callSubscriber(this._state);
-    }
-    if (action.type === UPLOAD_DIALOG_MESSAGE) {
-      this._state.dialogsPage.messageText = action.text;
-      this._callSubscriber(this._state);
-    }
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+    this._callSubscriber(this._state);
   },
 };
 
 export default store;
-
-export const addPostActionCreator = () => ({ type: ADD_POST });
-export const uploadPostMessageActionCreator = (text) => ({
-  type: UPLOAD_POST_MESSAGE,
-  text: text,
-});
-
-export const addDialogMessageActionCreator = () => ({
-  type: ADD_DIALOG_MESSAGE,
-});
-export const uploadDialogMessageActionCreator = (text) => ({
-  type: UPLOAD_DIALOG_MESSAGE,
-  text: text,
-});
