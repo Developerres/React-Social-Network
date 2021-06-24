@@ -1,9 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import {
-  addDialogMessageActionCreator,
-  uploadDialogMessageActionCreator,
-} from "../../redux/dialogsReducer";
 import cn from "./Dialogs.module.css";
 
 function DialogItem(props) {
@@ -31,12 +27,12 @@ function Dialogs(props) {
   ));
 
   const addNewDialogMessage = function () {
-    props.dispatch(addDialogMessageActionCreator());
+    props.addDialogMessage();
   };
 
   const messageOnChange = function (e) {
     const text = e.target.value;
-    props.dispatch(uploadDialogMessageActionCreator(text));
+    props.uploadDialogMessage(text);
   };
 
   return (

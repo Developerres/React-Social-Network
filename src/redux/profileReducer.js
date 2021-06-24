@@ -1,7 +1,15 @@
 const ADD_POST = "ADD-POST";
 const UPLOAD_POST_MESSAGE = "UPLOAD-POST-MESSAGE";
 
-const profileReducer = (state, action) => {
+const initialState = {
+  postData: [
+    { id: 1, message: "Hi. How are you?", likesCount: 15 },
+    { id: 2, message: "Hey. I'm fine. And you?", likesCount: 20 },
+  ],
+  dialogText: "",
+};
+
+const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST:
       const newPost = {

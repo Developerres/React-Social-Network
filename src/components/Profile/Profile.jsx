@@ -1,4 +1,4 @@
-import Posts from "./Posts/Posts";
+import PostsContainer from "./Posts/PostsContainer";
 import cn from "./Profile.module.css";
 
 function Profile(props) {
@@ -15,7 +15,7 @@ function Profile(props) {
         description
       </div>
 
-      <Posts profilePage={props.profilePage} dispatch={props.dispatch} />
+      <PostsContainer store={props.store} />
     </div>
   );
 }

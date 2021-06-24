@@ -1,19 +1,15 @@
 import React from "react";
-import {
-  addPostActionCreator,
-  uploadPostMessageActionCreator,
-} from "../../../redux/profileReducer";
 import Post from "./Post/Post";
 import cn from "./Posts.module.css";
 
 function Posts(props) {
   const addNewPost = function () {
-    props.dispatch(addPostActionCreator());
+    props.addPost();
   };
 
   const postOnChange = function (e) {
     const text = e.target.value;
-    props.dispatch(uploadPostMessageActionCreator(text));
+    props.uploadPostMessage(text);
   };
 
   const postRender = props.profilePage.postData.map((text) => (
