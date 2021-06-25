@@ -19,11 +19,11 @@ function MessageItem(props) {
 
 function Dialogs(props) {
   const userNameList = props.dialogsPage.dialogsData.map((user) => (
-    <DialogItem name={user.name} id={user.id} />
+    <DialogItem name={user.name} id={user.id} key={user.id} />
   ));
 
   const messageList = props.dialogsPage.messageData.map((text) => (
-    <MessageItem message={text.message} />
+    <MessageItem message={text.message} key={text.id} />
   ));
 
   const addNewDialogMessage = function () {

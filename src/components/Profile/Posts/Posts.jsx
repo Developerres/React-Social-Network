@@ -13,7 +13,7 @@ function Posts(props) {
   };
 
   const postRender = props.profilePage.postData.map((text) => (
-    <Post message={text.message} likes={text.likesCount} />
+    <Post message={text.message} likes={text.likesCount} key={text.id} />
   ));
 
   return (

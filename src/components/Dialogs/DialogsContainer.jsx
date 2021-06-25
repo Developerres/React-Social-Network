@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import {
   addDialogMessageActionCreator,
   uploadDialogMessageActionCreator,
@@ -6,23 +7,23 @@ import {
 
 import Dialogs from "./Dialogs";
 
-function DialogsContainer(props) {
-  const state = props.store.getState();
-  const addNewDialogMessage = function () {
-    props.store.dispatch(addDialogMessageActionCreator());
+const mapStateToProps = (state) => {
+  return {
+    dialogsPage: state.dialogsPage,
   };
+};
 
-  const messageOnChange = function (text) {
-    props.store.dispatch(uploadDialogMessageActionCreator(text));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    uploadDialogMessage: (text) => {
+      dispatch(uploadDialogMessageActionCreator(text));
+    },
+    addDialogMessage: () => {
+      dispatch(addDialogMessageActionCreator());
+    },
   };
+};
 
-  return (
-    <Dialogs
-      uploadDialogMessage={messageOnChange}
-      addDialogMessage={addNewDialogMessage}
-      dialogsPage={state.dialogsPage}
-    />
-  );
-}
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
 export default DialogsContainer;
