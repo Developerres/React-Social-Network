@@ -22,6 +22,8 @@
   min-width: 8.4em;
 }
 
-button.unfollow {
-  background-color: rgb(233, 15, 62);
+.currentPage,
+.currentPage:hover {
+  background-color: #ff0179;
+  cursor: default;
 }
