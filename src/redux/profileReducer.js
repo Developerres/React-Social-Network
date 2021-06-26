@@ -1,5 +1,6 @@
 const ADD_POST = "ADD-POST";
 const UPLOAD_POST_MESSAGE = "UPLOAD-POST-MESSAGE";
+const SET_USER_PROFILE = "SET_USER_PROFILE";
 
 const initialState = {
   postData: [
@@ -7,6 +8,7 @@ const initialState = {
     { id: 2, message: "Hey. I'm fine. And you?", likesCount: 20 },
   ],
   dialogText: "",
+  profile: null,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -29,6 +31,11 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         dialogText: action.text,
       };
+    case SET_USER_PROFILE:
+      return {
+        ...state,
+        profile: action.profile,
+      };
     default:
       return state;
   }
@@ -40,4 +47,9 @@ export const addPostActionCreator = () => ({ type: ADD_POST });
 export const uploadPostMessageActionCreator = (text) => ({
   type: UPLOAD_POST_MESSAGE,
   text: text,
+});
+
+export const setUserProfile = (profile) => ({
+  type: SET_USER_PROFILE,
+  profile,
 });

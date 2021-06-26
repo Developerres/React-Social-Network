@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import cn from "./Users.module.css";
 import avatar from "../assets/images/avatar.svg";
 
@@ -11,7 +12,9 @@ const Users = (props) => {
         <div key={u.id} className={cn.user}>
           <div className={cn.leftContent}>
             <div className={cn.userAvatar}>
-              <img src={u.photos.small ? u.photos.small : avatar} alt="" />
+              <NavLink to={"/profile/" + u.id}>
+                <img src={u.photos.small ? u.photos.small : avatar} alt="" />
+              </NavLink>
             </div>
             <div className={cn.followBtn}>
               <button

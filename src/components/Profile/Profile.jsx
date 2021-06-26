@@ -1,20 +1,11 @@
 import PostsContainer from "./Posts/PostsContainer";
 import cn from "./Profile.module.css";
+import ProfileInfo from "../Profile/ProfileInfo";
 
 function Profile(props) {
   return (
     <div>
-      <div className={cn.headerimage}>
-        <img src="https://via.placeholder.com/650x100" alt="" />
-      </div>
-      <div>
-        <img
-          src="https://assets.vercel.com/image/upload/f_auto,c_limit,q_auto,w_96/front/home/new/sarah-2.png"
-          alt=""
-        />
-        description
-      </div>
-
+      <ProfileInfo profile={props.profile} />
       <PostsContainer store={props.store} />
     </div>
   );

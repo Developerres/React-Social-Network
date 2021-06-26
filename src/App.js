@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import Profile from "./components/Profile/Profile.jsx";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from "./Users/UsersContainer";
 
 function App(props) {
@@ -15,7 +15,7 @@ function App(props) {
       <Header />
       <Navbar />
       <div className="App-content">
-        <Route path="/profile" render={() => <Profile />} />
+        <Route path="/profile/:userId" render={() => <ProfileContainer />} />
         <Route path="/dialogs" render={() => <DialogsContainer />} />
         <Route path="/users" render={() => <UsersContainer />} />
         <Route path="/news" render={() => <News />} />
