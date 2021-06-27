@@ -1,9 +1,18 @@
 import { NavLink } from "react-router-dom";
 import cn from "./Navbar.module.css";
 
-function Navbar() {
+function Navbar(props) {
   return (
     <nav className={cn.nav}>
+      {props.isAuth ? (
+        <p>
+          Login as: <strong>{props.login}</strong>
+        </p>
+      ) : (
+        <strong>
+          <NavLink to="/login">Login</NavLink>
+        </strong>
+      )}
       <div>
         <NavLink to="/profile" activeClassName={cn.active}>
           Profile

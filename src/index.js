@@ -20,6 +20,8 @@ function rerenderEntireTree(state) {
   );
 }
 
+window.store = store;
+
 rerenderEntireTree(store.getState());
 
 store.subscribe(() => {

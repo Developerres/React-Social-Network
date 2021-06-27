@@ -8,12 +8,14 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from "./Users/UsersContainer";
+import NavbarContainer from "./components/Navbar/NavbarContainer";
 
 function App(props) {
   return (
     <div className="App">
       <Header />
-      <Navbar />
+
+      <NavbarContainer />
       <div className="App-content">
         <Route path="/profile/:userId" render={() => <ProfileContainer />} />
         <Route path="/dialogs" render={() => <DialogsContainer />} />

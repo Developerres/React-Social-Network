@@ -16,7 +16,9 @@ class UsersAPIContainer extends React.Component {
   componentDidMount() {
     this.props.isFetchingToggle(true);
     axios
-      .get("https://social-network.samuraijs.com/api/1.0/users/")
+      .get("https://social-network.samuraijs.com/api/1.0/users/", {
+        withCredentials: true,
+      })
       .then((response) => {
         this.props.setUsers(response.data.items);
         this.props.setTotalCount(response.data.totalCount);
@@ -31,7 +33,8 @@ class UsersAPIContainer extends React.Component {
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${
           el + 1
-        }&count=${this.props.itemsCount}`
+        }&count=${this.props.itemsCount}`,
+        { withCredentials: true }
       )
       .then((response) => {
         this.props.setUsers(response.data.items);
