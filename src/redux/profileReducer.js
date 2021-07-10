@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api";
+
 const ADD_POST = "ADD-POST";
 const UPLOAD_POST_MESSAGE = "UPLOAD-POST-MESSAGE";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
@@ -9,6 +11,7 @@ const initialState = {
   ],
   dialogText: "",
   profile: null,
+  status: "Hello my friends",
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -53,3 +56,11 @@ export const setUserProfile = (profile) => ({
   type: SET_USER_PROFILE,
   profile,
 });
+
+export const getProfileThunk = (userId) => {
+  return (dispatch) => {
+    usersAPI.getProfile(userId).then((response) => {
+      dispatch(setUserProfile(response.data));
+    });
+  };
+};

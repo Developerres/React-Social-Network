@@ -1,21 +1,13 @@
 import React from "react";
 import Navbar from "../Navbar/Navbar";
 import axios from "axios";
-import { setUserAuth } from "../../redux/authReducer";
+import { setUserAuth, isLogged } from "../../redux/authReducer";
 import { connect } from "react-redux";
+import { usersAPI } from "../../api/api";
 
 class NavbarContainer extends React.Component {
   componentDidMount() {
-    axios
-      .get("https://social-network.samuraijs.com/api/1.0/auth/me", {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.data.resultCode === 0) {
-          let { id, email, login } = response.data.data;
-          this.props.setUserAuth(id, email, login);
-        }
-      });
+    this.props.isLogged();
   }
 
   render() {
@@ -32,4 +24,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setUserAuth })(NavbarContainer);
+export default connect(mapStateToProps, { setUserAuth, isLogged })(
+  NavbarContainer
+);

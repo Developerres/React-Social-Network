@@ -17,6 +17,15 @@ button {
   margin: 1em 0;
 }
 
+button:disabled {
+  background-color: #f7f7f7;
+  border: 2px solid #f7f7f7;
+  color: #030b1b;
+}
+button:hover:disabled {
+  background-color: #f7f7f7;
+}
+
 button:hover {
   background-color: #28344b;
 }
