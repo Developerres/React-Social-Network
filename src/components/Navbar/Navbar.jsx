@@ -6,7 +6,10 @@ function Navbar(props) {
     <nav className={cn.nav}>
       {props.isAuth ? (
         <p>
-          Login as: <strong>{props.login}</strong>
+          Login as: <strong>{props.login}</strong>{" "}
+          <small>
+            <button onClick={props.logout}>Logout</button>
+          </small>
         </p>
       ) : (
         <strong>

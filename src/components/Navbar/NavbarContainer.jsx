@@ -1,15 +1,9 @@
 import React from "react";
 import Navbar from "../Navbar/Navbar";
-import axios from "axios";
-import { setUserAuth, isLogged } from "../../redux/authReducer";
+import { setUserAuth, isLogged, logout } from "../../redux/authReducer";
 import { connect } from "react-redux";
-import { usersAPI } from "../../api/api";
 
 class NavbarContainer extends React.Component {
-  componentDidMount() {
-    this.props.isLogged();
-  }
-
   render() {
     return <Navbar {...this.props} />;
   }
@@ -23,6 +17,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setUserAuth, isLogged })(
+export default connect(mapStateToProps, { setUserAuth, isLogged, logout })(
   NavbarContainer
 );

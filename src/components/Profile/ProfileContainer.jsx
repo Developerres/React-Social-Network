@@ -12,9 +12,10 @@ import { compose } from "redux";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    let userId = this.props.match.params.userId;
+    let userId = this.props.match.params.userId || this.props.authorizedUserId;
     if (!userId) {
-      userId = 17963;
+      this.props.history.push("/login");
+      //userId = 17963;
     }
 
     this.props.getProfileThunk(userId);
@@ -36,6 +37,7 @@ class ProfileContainer extends React.Component {
 const mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
   status: state.profilePage.status,
+  authorizedUserId: state.auth.userId,
 });
 
 export default compose(

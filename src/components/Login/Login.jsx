@@ -1,29 +1,37 @@
 import cn from "../Login/Login.module.css";
 import { Form, Field } from "react-final-form";
+import { FORM_ERROR } from "final-form";
 import React from "react";
-
-const handleSubmit = async (values) => {
-  const emailO = values.email;
-
-  window.alert(JSON.stringify(values, 0, 2));
-};
+import { connect } from "react-redux";
+import { login } from "./../../redux/authReducer";
+import { Redirect } from "react-router-dom";
 
 const required = (value) => (value ? undefined : "Required");
 
 const Login = (props) => {
+  if (props.isAuth) return <Redirect to={"/profile"} />;
+
   return (
     <div>
       <h2>Login</h2>
-      <LoginForm />
+      <LoginForm {...props} />
     </div>
   );
 };
 
 const LoginForm = (props) => {
+  debugger;
+  const handleSubmit = async (values) => {
+    props.login(values.email, values.password, values.rememberMe);
+    // if (values.password !== "finalformrocks") {
+    //   return { [FORM_ERROR]: "Login Failed" };
+    // }
+  };
+
   return (
     <Form
       onSubmit={handleSubmit}
-      render={({ handleSubmit, submitting }) => (
+      render={({ submitError, handleSubmit, submitting }) => (
         <form onSubmit={handleSubmit}>
           <Field name="email" validate={required}>
             {({ input, meta }) => (
@@ -41,15 +49,18 @@ const LoginForm = (props) => {
               </div>
             )}
           </Field>
-          <Field name="remember" type="checkbox">
+          <Field name="rememberMe" type="checkbox">
             {({ input, meta }) => (
               <div>
-                <input {...input} type="checkbox" />
-                <label>Remember me</label>
+                <label>
+                  <input {...input} type="checkbox" />
+                  Remember me
+                </label>
                 {meta.error && meta.touched && <span>{meta.error}</span>}
               </div>
             )}
           </Field>
+          {submitError && <div className="error">{submitError}</div>}
           <div className="buttons">
             <button type="submit" disabled={submitting}>
               Submit
@@ -61,4 +72,8 @@ const LoginForm = (props) => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+  isAuth: state.auth.isAuth,
+});
+
+export default connect(mapStateToProps, { login })(Login);
