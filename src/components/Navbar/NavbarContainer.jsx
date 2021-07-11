@@ -14,7 +14,6 @@ class NavbarContainer extends React.Component {
     return <Navbar {...this.props} />;
   }
 }
-
 const mapStateToProps = (state) => {
   return {
     userId: state.auth.userId,

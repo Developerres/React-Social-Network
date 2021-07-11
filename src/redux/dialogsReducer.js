@@ -1,5 +1,4 @@
 const ADD_DIALOG_MESSAGE = "ADD-DIALOG-MESSAGE";
-const UPLOAD_DIALOG_MESSAGE = "UPLOAD-DIALOG-MESSAGE";
 
 const initialState = {
   dialogsData: [
@@ -14,7 +13,6 @@ const initialState = {
     { id: 2, message: "Hejo" },
     { id: 3, message: "Hi" },
   ],
-  messageText: "",
 };
 
 const dialogsReducer = (state = initialState, action) => {
@@ -26,27 +24,18 @@ const dialogsReducer = (state = initialState, action) => {
           ...state.messageData,
           {
             id: 4,
-            message: state.messageText,
+            message: action.messageText,
           },
         ],
-        messageText: "",
       };
-    case UPLOAD_DIALOG_MESSAGE:
-      return {
-        ...state,
-        messageText: action.text,
-      };
+
     default:
       return state;
   }
 };
 
 export default dialogsReducer;
-
-export const addDialogMessageActionCreator = () => ({
+export const addDialogMessageActionCreator = (messageText) => ({
   type: ADD_DIALOG_MESSAGE,
-});
-export const uploadDialogMessageActionCreator = (text) => ({
-  type: UPLOAD_DIALOG_MESSAGE,
-  text: text,
+  messageText,
 });

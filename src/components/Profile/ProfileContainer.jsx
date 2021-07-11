@@ -1,7 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import Profile from "./Profile";
-import { setUserProfile, getProfileThunk } from "../../redux/profileReducer";
+import {
+  setUserProfile,
+  getProfileThunk,
+  getStatusThunk,
+  updateStatusThunk,
+} from "../../redux/profileReducer";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 
@@ -9,14 +14,22 @@ class ProfileContainer extends React.Component {
   componentDidMount() {
     let userId = this.props.match.params.userId;
     if (!userId) {
-      userId = 2;
+      userId = 17963;
     }
 
     this.props.getProfileThunk(userId);
+    this.props.getStatusThunk(userId);
   }
 
   render() {
-    return <Profile {...this.props} />;
+    return (
+      <Profile
+        {...this.props}
+        ptofile={this.props.profile}
+        status={this.props.status}
+        updateStatus={this.props.updateStatusThunk}
+      />
+    );
   }
 }
 
@@ -26,12 +39,11 @@ const mapStateToProps = (state) => ({
 });
 
 export default compose(
-  connect(mapStateToProps, { setUserProfile, getProfileThunk }),
+  connect(mapStateToProps, {
+    setUserProfile,
+    getProfileThunk,
+    getStatusThunk,
+    updateStatusThunk,
+  }),
   withRouter
 )(ProfileContainer);
-
-// const ProfileContainerWithRouter = withRouter(ProfileContainer);
-
-// export default connect(mapStateToProps, { setUserProfile, getProfileThunk })(
-//   ProfileContainerWithRouter
-// );

@@ -1,17 +1,16 @@
-import { usersAPI } from "../api/api";
+import { profileAPI } from "../api/api";
 
 const ADD_POST = "ADD-POST";
-const UPLOAD_POST_MESSAGE = "UPLOAD-POST-MESSAGE";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
+const SET_STATUS = "SET_STATUS";
 
 const initialState = {
   postData: [
     { id: 1, message: "Hi. How are you?", likesCount: 15 },
     { id: 2, message: "Hey. I'm fine. And you?", likesCount: 20 },
   ],
-  dialogText: "",
   profile: null,
-  status: "Hello my friends",
+  status: "",
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -23,21 +22,20 @@ const profileReducer = (state = initialState, action) => {
           ...state.postData,
           {
             id: 5,
-            message: state.dialogText,
+            message: action.messageText,
             likesCount: 0,
           },
         ],
-        dialogText: "",
-      };
-    case UPLOAD_POST_MESSAGE:
-      return {
-        ...state,
-        dialogText: action.text,
       };
     case SET_USER_PROFILE:
       return {
         ...state,
         profile: action.profile,
+      };
+    case SET_STATUS:
+      return {
+        ...state,
+        status: action.status,
       };
     default:
       return state;
@@ -46,10 +44,9 @@ const profileReducer = (state = initialState, action) => {
 
 export default profileReducer;
 
-export const addPostActionCreator = () => ({ type: ADD_POST });
-export const uploadPostMessageActionCreator = (text) => ({
-  type: UPLOAD_POST_MESSAGE,
-  text: text,
+export const addPostActionCreator = (messageText) => ({
+  type: ADD_POST,
+  messageText,
 });
 
 export const setUserProfile = (profile) => ({
@@ -57,10 +54,33 @@ export const setUserProfile = (profile) => ({
   profile,
 });
 
+export const setUserStatus = (status) => ({
+  type: SET_STATUS,
+  status,
+});
+
 export const getProfileThunk = (userId) => {
   return (dispatch) => {
-    usersAPI.getProfile(userId).then((response) => {
+    profileAPI.getProfile(userId).then((response) => {
       dispatch(setUserProfile(response.data));
+    });
+  };
+};
+
+export const getStatusThunk = (userId) => {
+  return (dispatch) => {
+    profileAPI.getStatus(userId).then((response) => {
+      dispatch(setUserStatus(response.data));
+    });
+  };
+};
+
+export const updateStatusThunk = (status) => {
+  return (dispatch) => {
+    profileAPI.updateStatus(status).then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(setUserStatus(status));
+      }
     });
   };
 };

@@ -5,7 +5,7 @@ import ProfileStatus from "../Profile/ProfileStatus";
 function Profile(props) {
   return (
     <div>
-      <ProfileStatus status={props.status} />
+      <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
       <ProfileInfo profile={props.profile} />
       <PostsContainer store={props.store} />
     </div>

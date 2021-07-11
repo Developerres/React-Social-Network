@@ -10,6 +10,7 @@ function Post(props) {
       />
       {props.message}
       <span>
+        {" "}
         <img
           src="https://image.flaticon.com/icons/png/128/633/633759.png"
           width="12px"

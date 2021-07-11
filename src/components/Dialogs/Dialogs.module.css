@@ -59,13 +59,3 @@
   background: #fff;
   border-bottom-left-radius: 10px;
 }
-
-textarea {
-  width: 99%;
-}
-
-.flex_end {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}

@@ -2,10 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-import {
-  addDialogMessageActionCreator,
-  uploadDialogMessageActionCreator,
-} from "../../redux/dialogsReducer";
+import { addDialogMessageActionCreator } from "../../redux/dialogsReducer";
 
 import Dialogs from "./Dialogs";
 
@@ -17,11 +14,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    uploadDialogMessage: (text) => {
-      dispatch(uploadDialogMessageActionCreator(text));
-    },
-    addDialogMessage: () => {
-      dispatch(addDialogMessageActionCreator());
+    addDialogMessage: (messageText) => {
+      dispatch(addDialogMessageActionCreator(messageText));
     },
   };
 };
@@ -30,12 +24,3 @@ export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withAuthRedirect
 )(Dialogs);
-
-// let AuthRedirectComponent = withAuthRedirect(Dialogs);
-
-// const DialogsContainer = connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(AuthRedirectComponent);
-
-// export default DialogsContainer;

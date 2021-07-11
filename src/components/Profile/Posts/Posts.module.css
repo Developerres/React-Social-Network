@@ -1,9 +1,0 @@
-textarea {
-  width: 99%;
-}
-
-.flex_end {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}

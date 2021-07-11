@@ -1,4 +1,5 @@
 import React from "react";
+import { Field, Form } from "react-final-form";
 import { NavLink, Redirect } from "react-router-dom";
 import cn from "./Dialogs.module.css";
 
@@ -26,32 +27,55 @@ function Dialogs(props) {
     <MessageItem message={text.message} key={text.id} />
   ));
 
-  const addNewDialogMessage = function () {
-    props.addDialogMessage();
-  };
-
-  const messageOnChange = function (e) {
-    const text = e.target.value;
-    props.uploadDialogMessage(text);
-  };
-
   return (
     <div className={cn.pageDialogs}>
       <div className={cn.users}>{userNameList}</div>
       <div className={cn.dialogs}>
         <div>{messageList}</div>
         <div>
-          <div className={cn.flex_end}>
-            <textarea
-              onChange={messageOnChange}
-              value={props.dialogsPage.messageText}
-            />
-            <button onClick={addNewDialogMessage}>Send</button>
+          <div>
+            <AddMessageForm {...props} />
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+const AddMessageForm = (props) => {
+  const addNewDialogMessage = (value) => {
+    props.addDialogMessage(value.messageText);
+    value.messageText = "";
+  };
+
+  const required = (value) => (value ? undefined : "Required");
+
+  return (
+    <Form
+      onSubmit={addNewDialogMessage}
+      render={({ handleSubmit, submitting }) => (
+        <form onSubmit={handleSubmit}>
+          <Field name="messageText" validate={required}>
+            {({ input, meta }) => (
+              <div>
+                <textarea
+                  {...input}
+                  type="textarea"
+                  placeholder="Message text "
+                />
+                {meta.error && meta.touched && <span>{meta.error}</span>}
+              </div>
+            )}
+          </Field>
+          <div className="buttons">
+            <button type="submit" disabled={submitting}>
+              Send
+            </button>
+          </div>
+        </form>
+      )}
+    />
+  );
+};
 
 export default Dialogs;
