@@ -11,9 +11,16 @@ import {
 } from "../../redux/usersReducer";
 import React from "react";
 import Preloader from "../common/Preloader/Preloader";
-import { Redirect } from "react-router-dom";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
+import {
+  getCurrentPage,
+  getFollowingInPogress,
+  getIsFetching,
+  getItemsCount,
+  getTotalCount,
+  getUsersSelector,
+} from "../../redux/usersSelectors";
 
 class UsersAPIContainer extends React.Component {
   componentDidMount() {
@@ -45,12 +52,12 @@ class UsersAPIContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    itemsCount: state.usersPage.itemsCount,
-    totalCount: state.usersPage.totalCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    followingInPogress: state.usersPage.followingInPogress,
+    users: getUsersSelector(state),
+    itemsCount: getItemsCount(state),
+    totalCount: getTotalCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingInPogress: getFollowingInPogress(state),
   };
 };
 

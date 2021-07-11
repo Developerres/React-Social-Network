@@ -1,11 +1,14 @@
 import PostsContainer from "./Posts/PostsContainer";
 import ProfileInfo from "../Profile/ProfileInfo";
-import ProfileStatus from "../Profile/ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 function Profile(props) {
   return (
     <div>
-      <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+      <ProfileStatusWithHooks
+        status={props.status}
+        updateStatus={props.updateStatus}
+      />
       <ProfileInfo profile={props.profile} />
       <PostsContainer store={props.store} />
     </div>
