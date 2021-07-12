@@ -1,8 +1,9 @@
 import cn from "./Profile.module.css";
 import Preloader from "../common/Preloader/Preloader";
+import avatar from "../../assets/images/avatar.svg";
 
-function ProfileInfo(props) {
-  if (!props.profile) {
+function ProfileInfo({ profile }) {
+  if (!profile) {
     return <Preloader />;
   }
   return (
@@ -10,23 +11,26 @@ function ProfileInfo(props) {
       <div className={cn.headerimage}>
         <img src="https://via.placeholder.com/650x100" alt="" />
       </div>
-      <div>
-        <img src={props.profile.photos.large} alt="" />
-        <h2>{props.profile.fullName}</h2>
+      <div className={cn.photoLarge}>
+        <img
+          src={profile.photos.large ? profile.photos.large : avatar}
+          alt=""
+        />
+        <h2>{profile.fullName}</h2>
         <div>
-          <p>{props.profile.aboutMe}</p>
-          <p>{props.profile.lookingForAJobDescription}</p>
+          <p>{profile.aboutMe}</p>
+          <p>{profile.lookingForAJobDescription}</p>
         </div>
         <div>
           <h3>Contacts:</h3>
-          <p> FB: {props.profile.contacts.facebook}</p>
-          <p> website: {props.profile.contacts.website}</p>
-          <p> vk: {props.profile.contacts.vk}</p>
-          <p> twitter: {props.profile.contacts.twitter}</p>
-          <p> instagram: {props.profile.contacts.instagram}</p>
-          <p> youtube: {props.profile.contacts.youtube}</p>
-          <p> github: {props.profile.contacts.github}</p>
-          <p> mainLink: {props.profile.contacts.mainLink}</p>
+          <p> FB: {profile.contacts.facebook}</p>
+          <p> website: {profile.contacts.website}</p>
+          <p> vk: {profile.contacts.vk}</p>
+          <p> twitter: {profile.contacts.twitter}</p>
+          <p> instagram: {profile.contacts.instagram}</p>
+          <p> youtube: {profile.contacts.youtube}</p>
+          <p> github: {profile.contacts.github}</p>
+          <p> mainLink: {profile.contacts.mainLink}</p>
         </div>
       </div>
     </div>

@@ -2,15 +2,12 @@ import PostsContainer from "./Posts/PostsContainer";
 import ProfileInfo from "../Profile/ProfileInfo";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
-function Profile(props) {
+function Profile({ status, updateStatus, profile, store }) {
   return (
     <div>
-      <ProfileStatusWithHooks
-        status={props.status}
-        updateStatus={props.updateStatus}
-      />
-      <ProfileInfo profile={props.profile} />
-      <PostsContainer store={props.store} />
+      <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
+      <ProfileInfo profile={profile} />
+      <PostsContainer store={store} />
     </div>
   );
 }

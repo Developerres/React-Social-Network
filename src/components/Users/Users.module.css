@@ -21,9 +21,3 @@
   text-align: center;
   min-width: 8.4em;
 }
-
-.currentPage,
-.currentPage:hover {
-  background-color: #ff0179;
-  cursor: default;
-}

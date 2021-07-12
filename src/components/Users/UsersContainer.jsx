@@ -24,11 +24,13 @@ import {
 
 class UsersAPIContainer extends React.Component {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.itemsCount);
+    const { currentPage, itemsCount } = this.props;
+    this.props.getUsers(currentPage, itemsCount);
   }
 
   pageSelected = (el) => {
-    this.props.getUsersFromPage(el, this.props.itemsCount);
+    const { itemsCount, getUsersFromPage } = this.props;
+    getUsersFromPage(el, itemsCount);
   };
   render() {
     return (

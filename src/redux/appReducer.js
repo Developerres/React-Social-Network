@@ -23,14 +23,10 @@ export const initializedSuccess = () => ({
   type: INITIALIZED_SUCCESS,
 });
 
-export const initializeApp = () => {
-  return (dispatch) => {
-    const promise = dispatch(isLogged());
+export const initializeApp = () => async (dispatch) => {
+  await dispatch(isLogged());
 
-    promise.then(() => {
-      dispatch(initializedSuccess());
-    });
-  };
+  dispatch(initializedSuccess());
 };
 
 export default appReducer;

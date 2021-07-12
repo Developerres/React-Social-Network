@@ -1,3 +1,7 @@
 .headerimage img {
   width: 100%;
 }
+
+.photoLarge {
+  max-width: 200px;
+}

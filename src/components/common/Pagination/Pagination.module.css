@@ -1,0 +1,5 @@
+.currentPage,
+.currentPage:hover {
+  background-color: #ff0179;
+  cursor: default;
+}

@@ -1,4 +1,5 @@
 import { usersAPI } from "../api/api";
+import { updateObjectInArray } from "../helpers/objectHelpers";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -17,32 +18,32 @@ const initialState = {
   followingInPogress: [],
 };
 
+const someFunc = (items, id, userId, { obj }) => {
+  items.map((us) => {
+    if (us[id] === userId) {
+      return {
+        ...us,
+        ...obj,
+      };
+    }
+    return us;
+  });
+};
+
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
     case FOLLOW:
       return {
         ...state,
-        users: state.users.map((us) => {
-          if (us.id === action.userId) {
-            return {
-              ...us,
-              followed: true,
-            };
-          }
-          return us;
+        users: updateObjectInArray(state.users, action.userId, "id", {
+          followed: true,
         }),
       };
     case UNFOLLOW:
       return {
         ...state,
-        users: state.users.map((us) => {
-          if (us.id === action.userId) {
-            return {
-              ...us,
-              followed: false,
-            };
-          }
-          return us;
+        users: updateObjectInArray(state.users, action.userId, "id", {
+          followed: false,
         }),
       };
     case SETUSERS:
@@ -116,49 +117,53 @@ export const toggleFollowingProgress = (isFetching, userId) => ({
   userId,
 });
 
-export const getUsers = (currentPage, itemsCount) => {
-  return (dispatch) => {
-    dispatch(isFetchingToggle(true));
-    usersAPI.getUsersAPI(currentPage, itemsCount).then((data) => {
-      dispatch(setUsers(data.items));
-      dispatch(setTotalCount(data.totalCount));
-      dispatch(isFetchingToggle(false));
-    });
-  };
+export const getUsers = (currentPage, itemsCount) => async (dispatch) => {
+  dispatch(isFetchingToggle(true));
+  const data = await usersAPI.getUsersAPI(currentPage, itemsCount);
+
+  dispatch(setUsers(data.items));
+  dispatch(setTotalCount(data.totalCount));
+  dispatch(isFetchingToggle(false));
 };
 
-export const getUsersFromPage = (el, itemsCount) => {
-  return (dispatch) => {
-    dispatch(setCurrentPage(el + 1));
-    dispatch(isFetchingToggle(true));
+export const getUsersFromPage = (el, itemsCount) => async (dispatch) => {
+  dispatch(setCurrentPage(el + 1));
+  dispatch(isFetchingToggle(true));
 
-    usersAPI.getUsersAPI(el + 1, itemsCount).then((data) => {
-      dispatch(setUsers(data.items));
-      dispatch(isFetchingToggle(false));
-    });
-  };
+  const data = await usersAPI.getUsersAPI(el + 1, itemsCount);
+
+  dispatch(setUsers(data.items));
+  dispatch(isFetchingToggle(false));
 };
 
-export const followThunk = (userId) => {
-  return (dispatch) => {
-    dispatch(toggleFollowingProgress(true, userId));
-    usersAPI.followAPI(userId).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(followSuccess(userId));
-        dispatch(toggleFollowingProgress(false, userId));
-      }
-    });
-  };
+export const followUnfollowFlow = async (
+  dispatch,
+  userId,
+  apiMethod,
+  actionCreator
+) => {
+  dispatch(toggleFollowingProgress(true, userId));
+  const response = await apiMethod(userId);
+  if (response.data.resultCode === 0) {
+    dispatch(actionCreator(userId));
+    dispatch(toggleFollowingProgress(false, userId));
+  }
 };
 
-export const unfollowThunk = (userId) => {
-  return (dispatch) => {
-    usersAPI.unfollowAPI(userId).then((response) => {
-      dispatch(toggleFollowingProgress(true, userId));
-      if (response.data.resultCode === 0) {
-        dispatch(unfollowSuccess(userId));
-        dispatch(toggleFollowingProgress(false, userId));
-      }
-    });
-  };
+export const followThunk = (userId) => async (dispatch) => {
+  followUnfollowFlow(
+    dispatch,
+    userId,
+    usersAPI.followAPI.bind(usersAPI),
+    followSuccess
+  );
+};
+
+export const unfollowThunk = (userId) => async (dispatch) => {
+  followUnfollowFlow(
+    dispatch,
+    userId,
+    usersAPI.unfollowAPI.bind(usersAPI),
+    unfollowSuccess
+  );
 };
