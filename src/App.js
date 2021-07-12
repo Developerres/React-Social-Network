@@ -13,7 +13,6 @@ import { connect } from "react-redux";
 import { initializeApp } from "./redux/appReducer";
 import { compose } from "redux";
 import Preloader from "./components/common/Preloader/Preloader";
-import { Suspense } from "react";
 import { withSuspense } from "./hoc/withSuspense";
 
 // import DialogsContainer from "./components/Dialogs/DialogsContainer.jsx";
